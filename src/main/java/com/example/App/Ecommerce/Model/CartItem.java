@@ -22,7 +22,7 @@ public class CartItem {
 
 
     @Column(precision = 10, scale = 2)
-    private BigDecimal discountAmount;
+    private BigDecimal discountAmount = BigDecimal.ZERO;
 
     @Column(nullable = false)
     private Integer quantity;
@@ -38,8 +38,21 @@ public class CartItem {
     // ✅ Null-safe calculation
     public BigDecimal getItemTotal() {
         BigDecimal subtotal = unitPrice.multiply(BigDecimal.valueOf(quantity));
-        BigDecimal discount = discountAmount != null ? discountAmount : BigDecimal.ZERO;
-        return subtotal.subtract(discount.multiply(BigDecimal.valueOf(quantity))).max(BigDecimal.ZERO); // Ensure non-negative
+        return subtotal.subtract(discountAmount); // Ensure non-negative
+    }
+
+    public void updateDiscount(Integer quantity)
+    {
+        if(product.getDiscountPercentage() != null && product.getDiscountPercentage() > 0)
+        {
+            double discountFloat = (double) product.getDiscountPercentage() / 100;
+            BigDecimal discountAmount = product.getPrice().multiply(BigDecimal.valueOf(discountFloat));
+
+            if(discountAmount.compareTo(BigDecimal.ZERO) > 0)
+            {
+                this.discountAmount = discountAmount.multiply(BigDecimal.valueOf(quantity));
+            }
+        }
     }
 
 }

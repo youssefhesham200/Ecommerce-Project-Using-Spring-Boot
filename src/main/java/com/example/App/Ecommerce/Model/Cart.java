@@ -1,6 +1,5 @@
 package com.example.App.Ecommerce.Model;
 
-import com.example.App.Ecommerce.Consistents.enums.CartStatus;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;

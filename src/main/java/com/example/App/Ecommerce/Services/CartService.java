@@ -6,4 +6,6 @@ import com.example.App.Ecommerce.Payload.ResDtos.CartResDto;
 public interface CartService {
     CartResDto addCartItem(Long productId, Integer qty);
     void deleteCartItem(Long productId);
+    CartResDto getCart();
+    CartResDto updateProductQty(Long productId, Integer qty);
 }

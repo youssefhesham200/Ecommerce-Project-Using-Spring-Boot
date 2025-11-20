@@ -1,5 +1,6 @@
 package com.example.App.Ecommerce.Model;
 
+import com.example.App.Ecommerce.Consistents.enums.ProductStatus;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -38,10 +39,13 @@ public class Product {
 
     private Integer discountPercentage;
     private  String image;
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "category_id", nullable = false)
     private Category category;
 
+    @Enumerated(EnumType.STRING)
+    private ProductStatus productStatus = ProductStatus.ACTIVE;
 
     @OneToMany(mappedBy = "product")
     private List<CartItem> cartItems = new ArrayList<>();

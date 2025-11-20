@@ -7,4 +7,5 @@ public interface ProductService {
     ProductRes getProducts(Integer pageSize,Integer pageNumber,String sortBy,String sortOrder, Long categoryId);
     ProductDto createProduct(Long categoryId,ProductDto productDto);
     ProductDto updateProduct(Long productId,ProductDto productDto);
+    void deleteProduct(Long productId);
 }

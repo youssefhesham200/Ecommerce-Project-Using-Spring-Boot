@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 public class ProductController {
-    private ProductService productService;
+    private final ProductService productService;
 
     public ProductController(ProductService productService) {
         this.productService = productService;
@@ -59,6 +59,15 @@ public class ProductController {
     {
         ProductDto productRes = productService.updateProduct(productId, productDto);
         return new ResponseEntity<>(productRes, HttpStatus.CREATED);
+    }
+
+    @DeleteMapping("api/admin/products/{productId}")
+    public ResponseEntity<String> deleteProduct(
+            @PathVariable Long productId
+    )
+    {
+        productService.deleteProduct(productId);
+        return new ResponseEntity<>("deleted", HttpStatus.OK);
     }
 
 }

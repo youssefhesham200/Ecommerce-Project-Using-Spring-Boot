@@ -1,5 +1,6 @@
 package com.example.App.Ecommerce.Services.Impl;
 
+import com.example.App.Ecommerce.Consistents.enums.ProductStatus;
 import com.example.App.Ecommerce.Exceptions.ApiException;
 import com.example.App.Ecommerce.Model.Category;
 import com.example.App.Ecommerce.Model.Product;
@@ -48,11 +49,11 @@ public class ProductImpl implements ProductService {
             Category category =  categoryRepo.findById(categoryId)
                     .orElseThrow(() -> new ApiException("There's no category with this ID"));
 
-            pageProducts = productRepo.findAllBycategory(category, pageable);
+            pageProducts = productRepo.findAllByCategoryAndProductStatus(category, ProductStatus.ACTIVE, pageable);
         }
         else
         {
-            pageProducts = productRepo.findAll(pageable);
+            pageProducts = productRepo.findAllByProductStatus(ProductStatus.ACTIVE, pageable);
         }
 
         List<ProductDto> products = pageProducts.getContent().stream().map(c ->
@@ -85,5 +86,14 @@ public class ProductImpl implements ProductService {
         Product updatedProduct = productRepo.save(existingProduct);
 
         return modelMapper.map(updatedProduct, ProductDto.class);
+    }
+
+    @Override
+    public void deleteProduct(Long productId) {
+        Product product = productRepo.findById(productId).
+                orElseThrow(() -> new RuntimeException("product not found"));
+
+        product.setProductStatus(ProductStatus.REMOVED);
+        productRepo.save(product);
     }
 }
