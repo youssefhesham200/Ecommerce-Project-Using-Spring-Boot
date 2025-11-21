@@ -44,8 +44,7 @@ public class User {
         this.email = email;
     }
 
-    @Setter
-    @Getter
+
     @ManyToMany
     @ToString.Exclude
     @JoinTable(name = "user_roles",
@@ -53,14 +52,10 @@ public class User {
             inverseJoinColumns = @JoinColumn(name = "role_id"))
     Set<Role> roles = new HashSet<>();
 
-    @Setter
-    @Getter
     @ToString.Exclude
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Address> addresses = new ArrayList<>();
 
-    @Setter
-    @Getter
     @ToString.Exclude
     @OneToOne(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     private Cart cart;

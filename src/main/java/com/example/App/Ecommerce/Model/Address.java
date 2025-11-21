@@ -19,19 +19,19 @@ public class Address {
     @Column(name = "address_id")
     private Integer id;
 
-    @Column(name = "street", nullable = false, length = 100)
+    @Column(name = "street", length = 100)
     private String street;
 
-    @Column(name = "city", nullable = false, length = 50)
+    @Column(name = "city", length = 50)
     private String city;
 
-    @Column(name = "state", nullable = false, length = 50)
+    @Column(name = "state",  length = 50)
     private String state;
 
-    @Column(name = "country", nullable = false, length = 50)
+    @Column(name = "country", length = 50)
     private String country;
 
-    @Column(name = "postal_code", nullable = false, length = 10)
+    @Column(name = "postal_code", length = 10)
     private String postalCode;
 
     @Column(name = "phone_number", length = 20)
